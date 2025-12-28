@@ -7,20 +7,33 @@ import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
 
 private val DarkColorScheme = darkColorScheme(
-    primary = Purple80,
-    secondary = PurpleGrey80,
-    tertiary = Pink80
+    primary = DarkPrimary,
+    onPrimary = Color.Black,
+    secondary = DarkSecondary,
+    onSecondary = Color.Black,
+    tertiary = Teal40,
+    background = DarkBackground,
+    surface = DarkSurface,
+    onSurface = Color.White
 )
 
 private val LightColorScheme = lightColorScheme(
-    primary = Purple40,
-    secondary = PurpleGrey40,
-    tertiary = Pink40
+    primary = PrimaryBlue,
+    onPrimary = Color.White,
+    secondary = AccentOrange,
+    onSecondary = Color.Black,
+    tertiary = Teal40,
+    background = NeutralGray10,
+    surface = White,
+    onSurface = NeutralGray90,
+    surfaceVariant = PrimaryBlueLight,
+    onSurfaceVariant = PrimaryBlueDark
 )
 
 @Composable
