@@ -40,6 +40,7 @@ fun AdminHomeScreen(
     var searchQuery by remember { mutableStateOf("") }
     var showDeleteDialog by remember { mutableStateOf(false) }
     var bookToDelete by remember { mutableStateOf<Book?>(null) }
+    var showLogoutDialog by remember { mutableStateOf(false) }
     
     // Load books on first composition
     LaunchedEffect(Unit) {
@@ -108,7 +109,7 @@ fun AdminHomeScreen(
                        ) {
                             Column {
                                 Text(
-                                    text = "Admin Panel",
+                                    text = "Admin",
                                     style = MaterialTheme.typography.headlineMedium,
                                     fontWeight = FontWeight.Bold,
                                     color = MaterialTheme.colorScheme.onPrimary
@@ -121,14 +122,40 @@ fun AdminHomeScreen(
                             }
                            IconButton(
                                onClick = {
-                                   loginViewModel.logout()
-                                   onLogout()
+                                   showLogoutDialog = true
                                },
                                modifier = Modifier
                                    .background(Color.White.copy(alpha = 0.2f), CircleShape)
                            ) {
                                Icon(Icons.Default.ExitToApp, "Logout", tint = MaterialTheme.colorScheme.onPrimary)
                            }
+                       }
+                       
+                       // Logout Confirmation Dialog
+                       if (showLogoutDialog) {
+                           AlertDialog(
+                               onDismissRequest = { showLogoutDialog = false },
+                               title = { Text("Keluar") },
+                               text = { Text("Apakah Anda yakin ingin keluar dari aplikasi?") },
+                               confirmButton = {
+                                   TextButton(
+                                       onClick = {
+                                           showLogoutDialog = false
+                                           loginViewModel.logout()
+                                           onLogout()
+                                       }
+                                   ) {
+                                       Text("Ya")
+                                   }
+                               },
+                               dismissButton = {
+                                   TextButton(
+                                       onClick = { showLogoutDialog = false }
+                                   ) {
+                                       Text("Tidak")
+                                   }
+                               }
+                           )
                        }
                        
                        Spacer(modifier = Modifier.height(24.dp))

@@ -203,7 +203,7 @@ fun LoginScreen(
                         text = "Daftar",
                         style = MaterialTheme.typography.bodyMedium,
                         fontWeight = FontWeight.Bold,
-                        color = MaterialTheme.colorScheme.secondary,
+                        color = MaterialTheme.colorScheme.primary,
                         modifier = Modifier.clickable { onNavigateToRegister() }
                     )
                 }

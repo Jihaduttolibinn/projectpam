@@ -39,6 +39,7 @@ fun UserHomeScreen(
     val isLoading by bookViewModel.isLoading.collectAsState()
     
     var searchQuery by remember { mutableStateOf("") }
+    var showLogoutDialog by remember { mutableStateOf(false) }
     
     LaunchedEffect(Unit) {
         bookViewModel.loadBooks()
@@ -94,14 +95,40 @@ fun UserHomeScreen(
                             }
                            IconButton(
                                onClick = {
-                                   loginViewModel.logout()
-                                   onLogout()
+                                   showLogoutDialog = true
                                },
                                modifier = Modifier
                                    .background(Color.White.copy(alpha = 0.2f), CircleShape)
                            ) {
                                Icon(Icons.Filled.ExitToApp, "Logout", tint = MaterialTheme.colorScheme.onPrimary)
                            }
+                       }
+                       
+                       // Logout Confirmation Dialog
+                       if (showLogoutDialog) {
+                           AlertDialog(
+                               onDismissRequest = { showLogoutDialog = false },
+                               title = { Text("Keluar") },
+                               text = { Text("Apakah Anda yakin ingin keluar dari aplikasi?") },
+                               confirmButton = {
+                                   TextButton(
+                                       onClick = {
+                                           showLogoutDialog = false
+                                           loginViewModel.logout()
+                                           onLogout()
+                                       }
+                                   ) {
+                                       Text("Ya")
+                                   }
+                               },
+                               dismissButton = {
+                                   TextButton(
+                                       onClick = { showLogoutDialog = false }
+                                   ) {
+                                       Text("Tidak")
+                                   }
+                               }
+                           )
                        }
                        
                        Spacer(modifier = Modifier.height(24.dp))
@@ -269,14 +296,7 @@ fun BookItemUser(
                         color = MaterialTheme.colorScheme.surface.copy(alpha = 0.9f),
                         shape = RoundedCornerShape(bottomStart = 8.dp),
                         modifier = Modifier.align(Alignment.TopEnd)
-                    ) {
-                        Text(
-                            text = "Novel",
-                            style = MaterialTheme.typography.labelSmall,
-                            modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.dp),
-                            color = MaterialTheme.colorScheme.onSurface 
-                        )
-                    }
+                    ) {}
                 }
             }
             
