@@ -10,7 +10,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.example.projectpam.ui.theme.BukuOnlineTheme
+import com.example.projectpam.ui.theme.ProjectpamTheme
 import com.example.projectpam.view.*
 
 class MainActivity : ComponentActivity() {
@@ -18,7 +18,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            BukuOnlineTheme {
+            ProjectpamTheme {
                 BukuOnlineApp()
             }
         }

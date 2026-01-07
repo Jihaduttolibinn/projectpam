@@ -310,6 +310,7 @@ fun BookItemAdmin(
                         text = "📖",
                         fontSize = 32.sp
                     )
+
                 }
                 
                 Spacer(modifier = Modifier.width(16.dp))

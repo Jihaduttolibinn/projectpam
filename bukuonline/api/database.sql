@@ -24,7 +24,8 @@ CREATE TABLE IF NOT EXISTS buku (
 CREATE TABLE IF NOT EXISTS pengguna (
     user_id INT PRIMARY KEY AUTO_INCREMENT,
     username VARCHAR(100) NOT NULL,
-    password VARCHAR(255) NOT NULL
+    password VARCHAR(255) NOT NULL,
+    email VARCHAR(100)
 );
 
 -- Insert data admin

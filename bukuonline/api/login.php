@@ -55,6 +55,13 @@ if ($result->num_rows > 0) {
 } else {
     // Cek di tabel pengguna
     $stmt = $conn->prepare("SELECT user_id, username, email FROM pengguna WHERE username = ? AND password = ?");
+    
+    if (!$stmt) {
+        http_response_code(500);
+        sendResponse(false, "Database Error (User): " . $conn->error);
+        exit();
+    }
+
     $stmt->bind_param("ss", $username, $password);
     $stmt->execute();
     $result = $stmt->get_result();

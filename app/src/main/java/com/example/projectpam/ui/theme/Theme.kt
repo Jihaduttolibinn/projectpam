@@ -7,37 +7,38 @@ import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
 
 private val DarkColorScheme = darkColorScheme(
     primary = DarkPrimary,
-    onPrimary = Color.Black,
+    onPrimary = White,
     secondary = DarkSecondary,
-    onSecondary = Color.Black,
+    onSecondary = NeutralGray90,
     tertiary = Teal40,
     background = DarkBackground,
     surface = DarkSurface,
-    onSurface = Color.White
+    onSurface = White,
+    surfaceVariant = DarkSurface, // Use DarkSurface for variants
+    onSurfaceVariant = NeutralGray10 // Light gray for text on variants
 )
 
 private val LightColorScheme = lightColorScheme(
     primary = PrimaryBlue,
-    onPrimary = Color.White,
+    onPrimary = White,
     secondary = AccentOrange,
-    onSecondary = Color.Black,
+    onSecondary = NeutralGray90,
     tertiary = Teal40,
     background = NeutralGray10,
     surface = White,
     onSurface = NeutralGray90,
-    surfaceVariant = PrimaryBlueLight,
-    onSurfaceVariant = PrimaryBlueDark
+    surfaceVariant = PrimaryBlueLight, // A light blue for card backgrounds
+    onSurfaceVariant = PrimaryBlueDark // A dark blue for text on cards
 )
 
 @Composable
-fun BukuOnlineTheme(
+fun ProjectpamTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     content: @Composable () -> Unit
 ) {
@@ -49,8 +50,7 @@ fun BukuOnlineTheme(
     if (!view.isInEditMode) {
         SideEffect {
             val window = (view.context as Activity).window
-            window.statusBarColor = colorScheme.primary.toArgb()
-            WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = darkTheme
+            WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = !darkTheme
         }
     }
 
@@ -60,4 +60,3 @@ fun BukuOnlineTheme(
         content = content
     )
 }
-
