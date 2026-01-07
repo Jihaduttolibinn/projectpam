@@ -5,11 +5,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.guestapi"
+    namespace = "com.example.projectpam"
     compileSdk = 36
 
     defaultConfig {
-        applicationId = "com.example.guestapi"
+        applicationId = "com.example.projectpam"
         minSdk = 24
         targetSdk = 36
         versionCode = 1
