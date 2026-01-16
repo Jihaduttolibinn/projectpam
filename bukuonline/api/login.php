@@ -1,7 +1,4 @@
 <?php
-// File: login.php
-// Endpoint untuk login admin dan user
-
 require_once 'config.php';
 
 // Hanya terima method POST
@@ -86,4 +83,3 @@ if ($result->num_rows > 0) {
 
 $stmt->close();
 $conn->close();
-?>

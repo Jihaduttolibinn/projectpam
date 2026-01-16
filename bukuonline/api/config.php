@@ -1,8 +1,5 @@
 <?php
 // File: config.php
-// Konfigurasi koneksi database
-
-// Set header untuk JSON response
 header('Content-Type: application/json');
 header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE');
@@ -43,4 +40,3 @@ function sendResponse($success, $message, $data = null) {
     
     echo json_encode($response);
 }
-?>

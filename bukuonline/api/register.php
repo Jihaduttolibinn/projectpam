@@ -1,7 +1,4 @@
 <?php
-// File: register.php
-// Endpoint untuk registrasi pengguna baru
-
 require_once 'config.php';
 
 // Hanya terima method POST
@@ -58,4 +55,3 @@ if ($stmt->execute()) {
 
 $stmt->close();
 $conn->close();
-?>

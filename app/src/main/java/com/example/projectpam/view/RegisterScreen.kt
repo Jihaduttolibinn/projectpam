@@ -12,6 +12,8 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.Visibility
+import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -24,6 +26,7 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -45,6 +48,8 @@ fun RegisterScreen(
     var username by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var email by remember { mutableStateOf("") }
+    var passwordVisible by remember { mutableStateOf(false) }
+
 
     val registerState by viewModel.registerState.collectAsState()
     val snackbarHostState = remember { SnackbarHostState() }
@@ -291,8 +296,17 @@ fun RegisterScreen(
                                 tint = ModernIndigo
                             ) 
                         },
+                        trailingIcon = {
+                            IconButton(onClick = { passwordVisible = !passwordVisible }) {
+                                Icon(
+                                    imageVector = if (passwordVisible) Icons.Filled.Visibility else Icons.Filled.VisibilityOff,
+                                    contentDescription = if (passwordVisible) "Toggle password visibility" else null,
+                                    tint = ModernIndigo
+                                )
+                            }
+                        },
                         singleLine = true,
-                        visualTransformation = PasswordVisualTransformation(),
+                        visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
                         keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
                         modifier = Modifier.fillMaxWidth(),
                         shape = RoundedCornerShape(20.dp),
@@ -313,6 +327,8 @@ fun RegisterScreen(
                                 username.isNotBlank() && username.all { it.isDigit() }
                             val isEmailValid = email.endsWith("@gmail.com")
                             val isPasswordLongEnough = password.length >= 8
+                            val hasLetter = password.any { it.isLetter() }
+                            val hasDigit = password.any { it.isDigit() }
 
                             when {
                                 username.isBlank() || password.isBlank() || email.isBlank() -> {
@@ -326,6 +342,9 @@ fun RegisterScreen(
                                 }
                                 !isPasswordLongEnough -> {
                                     scope.launch { snackbarHostState.showSnackbar("Kata sandi minimal harus 8 karakter") }
+                                }
+                                !hasLetter || !hasDigit -> {
+                                    scope.launch { snackbarHostState.showSnackbar("Kata sandi harus kombinasi huruf dan angka") }
                                 }
                                 else -> {
                                     viewModel.register(
